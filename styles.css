@@ -93,6 +93,23 @@ body {
     transform: translateY(-2px);
 }
 
+.clear-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(70, 130, 180, 0.8) 0%, rgba(139, 69, 19, 0.8) 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(70, 130, 180, 0.3);
+}
+
 .filter-buttons {
     display: flex;
     gap: 10px;
@@ -162,7 +179,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50%" x="50%" text-anchor="middle" dy=".3em" font-size="40" fill="rgba(255,255,255,0.1)">🐉</text></svg>') center/contain no-repeat;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(255, 255, 255, 0.05) 75%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 15px 15px 0 0;
+    pointer-events: none;
 }
 
 .animal-info {
@@ -282,7 +306,14 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50%" x="50%" text-anchor="middle" dy=".3em" font-size="60" fill="rgba(255,255,255,0.1)">🐉</text></svg>') center/contain no-repeat;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.08) 25%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(255, 255, 255, 0.08) 75%, 
+        rgba(255, 255, 255, 0.15) 100%);
+    border-radius: 15px 15px 0 0;
+    pointer-events: none;
 }
 
 .modal-info {
@@ -375,6 +406,14 @@ body {
     .modal-info {
         padding: 20px;
     }
+    
+    .close-btn {
+        right: 15px;
+        top: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -401,6 +440,14 @@ body {
     .filter-btn {
         padding: 6px 12px;
         font-size: 12px;
+    }
+    
+    .close-btn {
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
     }
 }
 

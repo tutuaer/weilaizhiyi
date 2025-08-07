@@ -143,6 +143,132 @@ const animalsData = [
         habitat: "黄河",
         features: "人面鱼身，能控制水流，喜怒无常",
         emoji: "🐟"
+    },
+    {
+        id: 17,
+        name: "白泽",
+        category: "神兽",
+        description: "通晓万物语言的瑞兽，能说人话，知天下事。",
+        habitat: "昆仑山",
+        features: "羊身独角，通晓万物，能言善辩",
+        emoji: "🐐"
+    },
+    {
+        id: 18,
+        name: "獬豸",
+        category: "神兽",
+        description: "公正之神兽，能辨是非曲直，专吃奸邪之人。",
+        habitat: "天庭",
+        features: "独角羊身，能辨是非，公正无私",
+        emoji: "🦄"
+    },
+    {
+        id: 19,
+        name: "重明鸟",
+        category: "飞禽",
+        description: "双瞳神鸟，能驱邪避凶，保护平安。",
+        habitat: "昆仑山",
+        features: "双瞳，能驱邪，羽毛发光",
+        emoji: "🦅"
+    },
+    {
+        id: 20,
+        name: "毕方",
+        category: "飞禽",
+        description: "火神之鸟，能喷火，象征火灾。",
+        habitat: "章莪山",
+        features: "独脚，能喷火，羽毛赤红",
+        emoji: "🔥"
+    },
+    {
+        id: 21,
+        name: "蛊雕",
+        category: "异兽",
+        description: "凶猛的雕形怪兽，能发出婴儿哭声诱人。",
+        habitat: "鹿台山",
+        features: "雕形，能模仿婴儿哭声，凶猛异常",
+        emoji: "🦅"
+    },
+    {
+        id: 22,
+        name: "英招",
+        category: "神兽",
+        description: "天帝的御者，掌管天马，能飞行千里。",
+        habitat: "天庭",
+        features: "人面马身，有翼，能飞行",
+        emoji: "🐎"
+    },
+    {
+        id: 23,
+        name: "陆吾",
+        category: "神兽",
+        description: "昆仑山神，掌管九部，守护神山。",
+        habitat: "昆仑山",
+        features: "虎身九尾，人面虎爪，威严无比",
+        emoji: "🐯"
+    },
+    {
+        id: 24,
+        name: "开明兽",
+        category: "神兽",
+        description: "昆仑山门神，九头人面，守护天门。",
+        habitat: "昆仑山",
+        features: "九头人面，虎身，守护天门",
+        emoji: "👹"
+    },
+    {
+        id: 25,
+        name: "梼杌",
+        category: "异兽",
+        description: "四凶之一，顽固不化，难以教化。",
+        habitat: "西方",
+        features: "虎身人面，獠牙，性情顽固",
+        emoji: "🐅"
+    },
+    {
+        id: 26,
+        name: "浑沌",
+        category: "异兽",
+        description: "四凶之一，不分善恶，是非不明。",
+        habitat: "中央",
+        features: "无面目，六足四翼，混沌不明",
+        emoji: "🌀"
+    },
+    {
+        id: 27,
+        name: "穷奇",
+        category: "异兽",
+        description: "四凶之一，专门吃好人，帮助恶人。",
+        habitat: "北方",
+        features: "虎身牛角，性情凶残，助纣为虐",
+        emoji: "🐅"
+    },
+    {
+        id: 28,
+        name: "饕餮",
+        category: "异兽",
+        description: "四凶之一，贪食之兽，象征贪婪。",
+        habitat: "东方",
+        features: "羊身人面，眼在腋下，贪食无厌",
+        emoji: "👹"
+    },
+    {
+        id: 29,
+        name: "九婴",
+        category: "水怪",
+        description: "九头蛇怪，能喷水火，被后羿射杀。",
+        habitat: "凶水",
+        features: "九头蛇身，能喷水火，凶猛异常",
+        emoji: "🐍"
+    },
+    {
+        id: 30,
+        name: "封豨",
+        category: "异兽",
+        description: "大野猪怪，力大无穷，被后羿射杀。",
+        habitat: "桑林",
+        features: "巨大野猪，力大无穷，凶猛异常",
+        emoji: "🐗"
     }
 ];
 
@@ -150,6 +276,7 @@ const animalsData = [
 const animalsGrid = document.getElementById('animalsGrid');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
+const clearSearchBtn = document.getElementById('clearSearchBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const modal = document.getElementById('animalModal');
 const closeModal = document.getElementById('closeModal');
@@ -170,6 +297,18 @@ function setupEventListeners() {
     searchBtn.addEventListener('click', handleSearch);
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
+            handleSearch();
+        }
+    });
+
+    // 返回全部功能
+    clearSearchBtn.addEventListener('click', clearSearch);
+
+    // 实时搜索（输入时自动搜索）
+    searchInput.addEventListener('input', (e) => {
+        if (e.target.value.trim() === '') {
+            clearSearch();
+        } else {
             handleSearch();
         }
     });
@@ -198,6 +337,55 @@ function setupEventListeners() {
 // 渲染动物卡片
 function renderAnimals(animals) {
     animalsGrid.innerHTML = '';
+    
+    if (animals.length === 0) {
+        // 显示空状态
+        const emptyState = document.createElement('div');
+        emptyState.className = 'empty-state';
+        emptyState.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px; color: #666;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">🔍</div>
+                <h3 style="margin-bottom: 10px; color: #333;">未找到相关动物</h3>
+                <p style="margin-bottom: 20px;">试试其他关键词或分类</p>
+                <button onclick="clearSearch()" style="
+                    padding: 10px 20px; 
+                    background: linear-gradient(135deg, rgba(139, 69, 19, 0.8) 0%, rgba(70, 130, 180, 0.8) 100%);
+                    color: white; 
+                    border: none; 
+                    border-radius: 25px; 
+                    cursor: pointer;
+                    font-size: 16px;
+                ">返回全部动物</button>
+            </div>
+        `;
+        animalsGrid.appendChild(emptyState);
+        return;
+    }
+    
+    // 显示搜索结果提示（只在有搜索词时显示）
+    if (currentSearch) {
+        const resultInfo = document.createElement('div');
+        resultInfo.className = 'result-info';
+        resultInfo.style.cssText = `
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            color: #2c1810;
+        `;
+        
+        let infoText = '';
+        if (currentFilter !== 'all') {
+            infoText = `找到 ${animals.length} 个"${currentSearch}"相关的${currentFilter}`;
+        } else {
+            infoText = `找到 ${animals.length} 个"${currentSearch}"相关的动物`;
+        }
+        
+        resultInfo.innerHTML = `<strong>${infoText}</strong>`;
+        animalsGrid.appendChild(resultInfo);
+    }
     
     animals.forEach(animal => {
         const card = createAnimalCard(animal);
@@ -229,6 +417,34 @@ function createAnimalCard(animal) {
 function handleSearch() {
     currentSearch = searchInput.value.trim().toLowerCase();
     filterAnimals();
+    updateSearchUI();
+}
+
+// 清除搜索
+function clearSearch() {
+    searchInput.value = '';
+    currentSearch = '';
+    currentFilter = 'all';
+    
+    // 重置筛选按钮状态
+    filterBtns.forEach(btn => btn.classList.remove('active'));
+    filterBtns[0].classList.add('active'); // 激活"全部"按钮
+    
+    filterAnimals();
+    updateSearchUI();
+}
+
+// 更新搜索界面状态
+function updateSearchUI() {
+    const hasSearch = currentSearch.trim() !== '';
+    const hasFilter = currentFilter !== 'all';
+    
+    if (hasSearch || hasFilter) {
+        clearSearchBtn.style.display = 'inline-block';
+        clearSearchBtn.textContent = hasSearch ? '清除搜索' : '返回全部';
+    } else {
+        clearSearchBtn.style.display = 'none';
+    }
 }
 
 // 筛选处理
@@ -239,6 +455,7 @@ function handleFilter(e) {
     
     currentFilter = e.target.dataset.category;
     filterAnimals();
+    updateSearchUI();
 }
 
 // 筛选动物
@@ -252,7 +469,7 @@ function filterAnimals() {
         );
     }
     
-    // 按搜索词筛选
+    // 按搜索词筛选（在分类筛选的基础上）
     if (currentSearch) {
         filteredAnimals = filteredAnimals.filter(animal =>
             animal.name.toLowerCase().includes(currentSearch) ||
@@ -266,7 +483,11 @@ function filterAnimals() {
 
 // 打开模态框
 function openModal(animal) {
-    document.getElementById('modalImage').innerHTML = `<span style="font-size: 6rem;">${animal.emoji}</span>`;
+    // 设置模态框图片（使用emoji作为图片内容）
+    const modalImage = document.getElementById('modalImage');
+    modalImage.innerHTML = `<span style="font-size: 6rem; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">${animal.emoji}</span>`;
+    
+    // 设置其他模态框内容
     document.getElementById('modalTitle').textContent = animal.name;
     document.getElementById('modalDescription').textContent = animal.description;
     document.getElementById('modalCategory').textContent = animal.category;
@@ -290,22 +511,16 @@ document.addEventListener('DOMContentLoaded', init);
 
 // 添加一些动画效果
 function addAnimationEffects() {
-    // 为卡片添加进入动画
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    });
-
-    // 观察所有动物卡片
-    document.querySelectorAll('.animal-card').forEach(card => {
+    // 为卡片添加简单的淡入效果
+    document.querySelectorAll('.animal-card').forEach((card, index) => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(card);
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
     });
 }
 
