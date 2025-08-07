@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山海博物馆</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="title">山海博物馆</h1>
+            <p class="subtitle">探索中国古代神话中的神奇动物</p>
+        </div>
+    </header>
+
+    <nav class="navigation">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="神兽">神兽</button>
+                <button class="filter-btn" data-category="异兽">异兽</button>
+                <button class="filter-btn" data-category="水怪">水怪</button>
+                <button class="filter-btn" data-category="飞禽">飞禽</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索动物名称...">
+                <button id="searchBtn">搜索</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="animals-grid" id="animalsGrid">
+                <!-- 动物卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="animalModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <div class="modal-details">
+                        <div class="detail-item">
+                            <strong>分类：</strong>
+                            <span id="modalCategory"></span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>栖息地：</strong>
+                            <span id="modalHabitat"></span>
+                        </div>
+                        <div class="detail-item">
+                            <strong>特征：</strong>
+                            <span id="modalFeatures"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 山海博物馆 - 传承中华文化瑰宝</p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+    
+    <!-- 百度智能体嵌入 -->
+    <script src="https://agi-dev-platform-web.bj.bcebos.com/ai_apaas/embed/output/embedLiteSDK.js?responseExpires=0"></script>
+    <script>
+        // 初始化百度智能体
+        window.embedInstance = new EmbedLiteSDK({
+            appId: 'ffe81af1-21e8-4544-a6ea-83efa33463aa', 
+            code: 'embedpxSlrB14aTpqLzpkRvfJ'
+        });
+        
+        // 智能体加载完成后的回调
+        window.embedInstance.onReady(() => {
+            console.log('百度智能体已加载完成');
+        });
+    </script>
+
+</body>
+</html> 
